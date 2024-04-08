@@ -8,7 +8,7 @@ export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Infostride | Staging </title>
+        <title> {import.meta.env.VITE_ENV} </title>
       </Helmet>
 
       <AppView />
