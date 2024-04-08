@@ -8,7 +8,7 @@ export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Infostride | Dashboard </title>
+        <title> Infostride | Staging </title>
       </Helmet>
 
       <AppView />
