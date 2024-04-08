@@ -5,14 +5,18 @@ const ThemeSettingContext = createContext();
 
 export const ThemeSettingContextProvider = ({ children }) => {
   const [mode, setMode] = useState('light');
+  const [sectionColor, setSectionColor] = useState('default');
+
 
   // Memoize the context value to prevent unnecessary re-renders
   const contextValue = useMemo(
     () => ({
       mode,
       setMode,
+      sectionColor,
+      setSectionColor
     }),
-    [mode, setMode]
+    [mode, setMode, sectionColor, setSectionColor]
   );
 
   return (

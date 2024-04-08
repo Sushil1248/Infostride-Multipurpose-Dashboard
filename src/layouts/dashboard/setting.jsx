@@ -11,7 +11,7 @@ import { useThemeSettingContext } from 'src/contexts/ThemeSettingContext';
 import Iconify from 'src/components/iconify';
 
 export default function Setting() {
-  const { mode, setMode } = useThemeSettingContext();
+  const { mode, setMode, sectionColor, setSectionColor } = useThemeSettingContext();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -61,13 +61,20 @@ export default function Setting() {
         <Stack spacing={2} sx={{ width: '100%', padding: '0.75rem' }}>
           <Typography variant="h6">Section Colors</Typography>
           <Stack direction="row" spacing={1}>
-            <Button variant="outlined"  onClick={() => setMode('light')} sx={{ width: 200, height: 100 }} disabled={mode==='light'}>
-              <span className={`${mode === 'light' && 'active'}`} >
-                Light Mode
+            <Button variant="outlined"  onClick={() => setSectionColor('indigo')} sx={{ width: 200, height: 100 }} disabled={sectionColor==='indigo'}>
+              <span className={`${sectionColor === 'indigo' && 'active'}`} >
+                Indigo
               </span>
             </Button>
-            <Button variant="outlined" onClick={() => setMode('dark')} sx={{ width: 200, height: 100 }}  disabled={mode==='dark'}>
-              <span className={`${mode === 'dark' && 'active'}`}>Dark Mode</span>
+            <Button variant="outlined"  onClick={() => setSectionColor('green')} sx={{ width: 200, height: 100 }} disabled={sectionColor==='green'}>
+              <span className={`${sectionColor === 'green' && 'active'}`} >
+                Green
+              </span>
+            </Button>
+            <Button variant="outlined"  onClick={() => setSectionColor('brown')} sx={{ width: 200, height: 100 }} disabled={sectionColor==='brown'}>
+              <span className={`${sectionColor === 'brown' && 'active'}`} >
+                Brown
+              </span>
             </Button>
           </Stack>
         </Stack>

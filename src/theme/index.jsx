@@ -10,12 +10,12 @@ import { shadows } from './shadows';
 import { overrides } from './overrides';
 import { typography } from './typography';
 import { customShadows } from './custom-shadows';
-import { darkPalette, lightPalette } from './palette';
+import { darkPalette, lightPalette, brown_variant,  green_variant, indigo_variant } from './palette';
 
 // ----------------------------------------------------------------------
 
 export default function ThemeProvider({ children }) {
-  const { mode } = useThemeSettingContext();
+  const { mode, sectionColor } = useThemeSettingContext();
   const memoizedValue = useMemo(
     () => ({
       palette: mode === 'light' ? lightPalette() : darkPalette(),
@@ -27,7 +27,13 @@ export default function ThemeProvider({ children }) {
     [mode]
   );
 
+  if(sectionColor && sectionColor !== 'default'){
+   if(sectionColor === 'brown' ) memoizedValue.palette.primary = brown_variant;
+   if(sectionColor === 'green' ) memoizedValue.palette.primary = green_variant;
+   if(sectionColor === 'indigo')  memoizedValue.palette.primary = indigo_variant;
+  }
   const theme = createTheme(memoizedValue);
+  console.log(memoizedValue.palette.primary);
 
   theme.components = overrides(theme);
 
