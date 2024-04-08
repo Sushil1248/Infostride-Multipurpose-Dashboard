@@ -22,7 +22,7 @@ export default function AppView() {
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Infostide 👋
+        Hi, {import.meta.env.VITE_APP_NAME} 👋
       </Typography>
 
       <Grid container spacing={3}>
