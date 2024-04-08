@@ -4,6 +4,7 @@ import { alpha } from '@mui/material/styles';
 
 // SETUP COLORS
 
+
 export const grey = {
   0: '#FFFFFF',
   100: '#F9FAFB',
@@ -17,7 +18,8 @@ export const grey = {
   900: '#161C24',
 };
 
-export const primary = {
+
+export const indigo_variant = {
   lighter: '#D0ECFE',
   light: '#73BAFB',
   main: '#1877F2',
@@ -25,6 +27,37 @@ export const primary = {
   darker: '#042174',
   contrastText: '#FFFFFF',
 };
+
+export const brown_variant = {
+  lighter: '#DACEBE',
+  light: '#C3B097',
+  main: '#9B7F59',
+  dark: '#68553C',
+  darker: '#413525',
+  contrastText: '#FFFFFF',
+};
+
+
+export const green_variant = {
+  lighter: '#9FBCA1',
+  light: '#87AB89',
+  main: '#547855',
+  dark: '#436044',
+  darker: '#324833',
+  contrastText: '#FFFFFF',
+};
+
+export const primary_three = {
+  lighter: '#D0ECFE',
+  light: '#73BAFB',
+  main: '#1877F2',
+  dark: '#0C44AE',
+  darker: '#042174',
+  contrastText: '#FFFFFF',
+};
+
+export const primary = import.meta.env.VITE_ENV==='staging' ? indigo_variant : brown_variant;
+
 
 export const secondary = {
   lighter: '#EFD6FF',

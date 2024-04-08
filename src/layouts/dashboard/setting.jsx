@@ -56,6 +56,23 @@ export default function Setting() {
         </Stack>
       </Box>
 
+
+      <Box sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 170px)' }}>
+        <Stack spacing={2} sx={{ width: '100%', padding: '0.75rem' }}>
+          <Typography variant="h6">Section Colors</Typography>
+          <Stack direction="row" spacing={1}>
+            <Button variant="outlined"  onClick={() => setMode('light')} sx={{ width: 200, height: 100 }} disabled={mode==='light'}>
+              <span className={`${mode === 'light' && 'active'}`} >
+                Light Mode
+              </span>
+            </Button>
+            <Button variant="outlined" onClick={() => setMode('dark')} sx={{ width: 200, height: 100 }}  disabled={mode==='dark'}>
+              <span className={`${mode === 'dark' && 'active'}`}>Dark Mode</span>
+            </Button>
+          </Stack>
+        </Stack>
+      </Box>
+
       <Divider />
     </Box>
   );
