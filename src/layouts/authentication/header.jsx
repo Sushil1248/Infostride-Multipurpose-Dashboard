@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -15,10 +15,7 @@ import Setting from 'src/layouts/dashboard/setting';
 import Iconify from 'src/components/iconify';
 
 import { NAV, HEADER } from './config-layout';
-import Searchbar from '../shared/common/searchbar';
-import AccountPopover from '../shared/common/account-popover';
 import LanguagePopover from '../shared/common/language-popover';
-import NotificationsPopover from '../shared/common/notifications-popover';
 
 // ----------------------------------------------------------------------
 
@@ -35,21 +32,17 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      <Searchbar />
-
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
         <LanguagePopover />
         <Setting />
-        <NotificationsPopover />
-        <AccountPopover />
       </Stack>
     </>
   );
 
   return (
-    <AppBar
+    <Grid
       sx={{
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
@@ -74,7 +67,7 @@ export default function Header({ onOpenNav }) {
       >
         {renderContent}
       </Toolbar>
-    </AppBar>
+    </Grid>
   );
 }
 
