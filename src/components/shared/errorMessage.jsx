@@ -6,7 +6,17 @@ import { FormHelperText } from '@mui/material';
 // ----------------------------------------------------------------------
 
 const ErrorMessage = forwardRef(({ message }, ref) => (
-    <FormHelperText sx= {{color: 'red', marginTop:'12px'}}>{message}</FormHelperText>
+  <FormHelperText
+    sx={{
+      color: 'red',
+      marginTop: '10px !important',
+      marginBottom: '10px !important',
+      fontSize: 14,
+      fontWeight: 'bold',
+    }}
+  >
+    {message}
+  </FormHelperText>
 ));
 
 ErrorMessage.propTypes = {

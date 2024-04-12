@@ -70,7 +70,7 @@ export default function LoginView() {
             ),
           }}
         />
-        <ErrorMessage message={errors.email && errors.password.message} />
+        <ErrorMessage message={errors.password && errors.password.message} />
         {/* Display validation error */}
       </Stack>
 
