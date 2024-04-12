@@ -20,6 +20,8 @@ import { loginSchema } from 'src/lib/validation';
 // import { useRouter } from 'src/routes/hooks';
 
 import { bgGradient } from 'src/theme/css';
+import APIUtils from 'src/lib/api/APIUtils';
+import AuthService from 'src/lib/api/AuthServices';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
@@ -41,8 +43,9 @@ export default function LoginView() {
     resolver: zodResolver(loginSchema), // Integrate loginSchema with React Hook Form
   });
 
-  const onSubmit = (data) => {
-    console.table(data); // Handle form submission here
+  const onSubmit =  async (data)  => {
+    const response = await APIUtils.handleRequest(AuthService.login(data));
+    console.table(response); // Handle form submission here
   };
 
   const renderForm = (
