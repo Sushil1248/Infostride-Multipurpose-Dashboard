@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'; // Import the zodResolver
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -13,34 +15,50 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { useRouter } from 'src/routes/hooks';
+import { loginSchema } from 'src/lib/validation';
+
+// import { useRouter } from 'src/routes/hooks';
 
 import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
+import ErrorMessage from 'src/components/shared/errorMessage';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
   const theme = useTheme();
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema), // Integrate loginSchema with React Hook Form
+  });
 
-  const handleClick = () => {
-    router.push('/dashboard');
+  const onSubmit = (data) => {
+    console.table(data); // Handle form submission here
   };
 
   const renderForm = (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
-
+        <TextField
+          name="email"
+          label="Email address"
+          {...register('email')} // Register form input and apply Zod validation
+        />
+        <ErrorMessage message={errors.email && errors.email.message} />
+        {/* Display validation error */}
         <TextField
           name="password"
           label="Password"
+          {...register('password')} // Register form input and apply Zod validation
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -52,6 +70,8 @@ export default function LoginView() {
             ),
           }}
         />
+        <ErrorMessage message={errors.email && errors.password.message} />
+        {/* Display validation error */}
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3 }}>
@@ -60,17 +80,10 @@ export default function LoginView() {
         </Link>
       </Stack>
 
-      <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        color="inherit"
-        onClick={handleClick}
-      >
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" color="inherit">
         Login
       </LoadingButton>
-    </>
+    </form>
   );
 
   return (

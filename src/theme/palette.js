@@ -39,8 +39,8 @@ export const brown_variant = {
 
 
 export const green_variant = {
-  lighter: '#9FBCA1',
-  light: '#87AB89',
+  lighter: '#98ae99',
+  light: '#658666',
   main: '#547855',
   dark: '#436044',
   darker: '#324833',
