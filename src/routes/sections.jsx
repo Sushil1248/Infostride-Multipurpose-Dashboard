@@ -12,6 +12,7 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // Authentication layout pages
 export const LoginPage = lazy(() => import('src/pages/login'));
+export const RegisterPage = lazy(() => import('src/pages/register'));
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +46,7 @@ export default function Router() {
         children:[
           { element: <LoginPage />, index: true },
           { path: 'login', element: <LoginPage /> },
+          { path: 'register', element: <RegisterPage /> },
         ]
       },
       {

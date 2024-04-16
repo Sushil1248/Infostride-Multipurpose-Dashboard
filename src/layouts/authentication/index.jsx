@@ -8,16 +8,19 @@ import Main from './main';
 
 export default function AuthLayout({ children }) {
   return (
-  
-      <Box
-        sx={{
-          minHeight: 1,
-          display: 'flex',
-          flexDirection: { xs: 'column', lg: 'row' },
-        }}
-      >
-        <Main>{children}</Main>
-      </Box>
+
+    <Box
+      sx={{
+        minHeight: 1,
+        p: 8,
+        display: 'flex',
+        flexDirection: { xs: 'column', lg: 'row' },
+      }}
+    >
+      <Main sx={{
+        p: 0,
+      }}>{children}</Main>
+    </Box>
   );
 }
 
