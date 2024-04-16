@@ -3,6 +3,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import AuthLayout from 'src/layouts/authentication';
+import AuthContextProvider from 'src/contexts/AuthContext';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -21,11 +22,13 @@ export default function Router() {
     [
       {
         element: (
-          <DashboardLayout>
-            <Suspense>
-              <Outlet />
-            </Suspense>
-          </DashboardLayout>
+          <AuthContextProvider>
+            <DashboardLayout>
+              <Suspense>
+                <Outlet />
+              </Suspense>
+            </DashboardLayout>
+          </AuthContextProvider>
         ),
         children: [
           { element: <IndexPage />, index: true },
@@ -35,15 +38,15 @@ export default function Router() {
         ],
       },
       {
-        path:'/auth/*',
+        path: '/auth/*',
         element: (
           <AuthLayout>
-              <Suspense>
-                <Outlet />
+            <Suspense>
+              <Outlet />
             </Suspense>
           </AuthLayout>
         ),
-        children:[
+        children: [
           { element: <LoginPage />, index: true },
           { path: 'login', element: <LoginPage /> },
           { path: 'register', element: <RegisterPage /> },

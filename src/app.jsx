@@ -15,7 +15,7 @@ export default function App() {
   return (
     <ThemeSettingContextProvider>
       <ThemeProvider>
-        <Router />
+          <Router />
       </ThemeProvider>
     </ThemeSettingContextProvider>
   );

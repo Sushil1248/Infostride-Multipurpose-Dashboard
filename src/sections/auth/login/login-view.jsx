@@ -121,6 +121,7 @@ export default function LoginView() {
         }
         if(response?.data?.login_success){
           toast.success(response?.data?.message);
+          localStorage.setItem('token', response?.data?.token)
           router.push('/');
         }
       }

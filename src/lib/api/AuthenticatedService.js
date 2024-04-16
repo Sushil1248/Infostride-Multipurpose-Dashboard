@@ -21,7 +21,7 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   else{
-    toast.info('Session Expired or You have been logout! Please try loggin in again.');
+    toast.info('Session Expired or You have been logout! Please try logging in again.');
   }
   return config;
 });
@@ -29,7 +29,7 @@ api.interceptors.request.use((config) => {
 const AuthenticatedService = {
   getProfile: async () => {
     try {
-      const response = await api.post(GET_PROFILE);
+      const response = await api.get(GET_PROFILE);
       return response.data;
     } catch (error) {
       throw error.response.data;
