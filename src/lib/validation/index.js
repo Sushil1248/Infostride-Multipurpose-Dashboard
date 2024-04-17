@@ -21,8 +21,11 @@ export const registerSchema = z.object({
   email: z.string().email(),
   firstName: z.string().min(3).max(20),
   username: z.string().min(3).max(20),
-  password: z.string().min(8),
-  department: z.string(),
+  password: z.string().min(8).regex(
+    /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/,
+    "Password must contain at least 1 uppercase letter, 1 special character, and 1 number"
+  ),
+  department: z.string().min(3),
   emp_code: z.string().min(5),
   confirm_password: z.string().min(8),
 }).superRefine(({ confirm_password, password }, ctx) => {
