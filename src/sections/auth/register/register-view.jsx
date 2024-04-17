@@ -31,6 +31,7 @@ import { useRouter } from 'src/routes/hooks';
 import { toast } from 'react-toastify';
 import Loader from 'src/layouts/shared/Loader';
 import { useRegisterMutation } from 'src/lib/api/queriesAndMutations';
+import { Grid } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -62,9 +63,8 @@ export default function RegisterView() {
 
   const renderForm = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3}>
-        <Stack sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 2 }}>
-          <Stack sx={{ width: '50%' }}>
+        <Grid container spacing={2}>
+          <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="firstName"
               label="Enter First name"
@@ -72,9 +72,9 @@ export default function RegisterView() {
               {...register('firstName')}
             />
             {errors.firstName && <ErrorMessage message={errors.firstName && errors.firstName.message} />}
-          </Stack>
+          </Grid>
 
-          <Stack sx={{ width: '50%' }}>
+          <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="username"
               sx={{ width: '100%' }}
@@ -82,42 +82,45 @@ export default function RegisterView() {
               {...register('username')}
             />
             {errors.username && <ErrorMessage message={errors.username && errors.username.message} />}
-          </Stack>
+          </Grid>
 
+          <Grid item lg={12} sm={12} xs={12} md={12}>
+           <TextField
+            name="email"
+            label="Email address"
+            sx={{ width: '100%' }}
+            {...register('email')}
+          />
+          {errors.email && <ErrorMessage message={errors.email && errors.email.message} />}
+          </Grid>
 
-        </Stack>
-
-        <TextField
-          name="email"
-          label="Email address"
-          {...register('email')}
-        />
-        {errors.email && <ErrorMessage message={errors.email && errors.email.message} />}
-
+      
         {/* Display validation error */}
 
-        <Stack sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 2 }}>
-          <Stack sx={{ width: '50%' }}>
+       
+        <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="department"
+              sx={{ width: '100%' }}
               label="Enter department name ( DME, DTU .... )"
               {...register('department')}
             />
             {errors.department && <ErrorMessage message={errors.department && errors.department.message} />}
-          </Stack>
-          <Stack sx={{ width: '50%' }}>
+            </Grid>
+            <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="emp_code"
+              sx={{ width: '100%' }}
               label="Email your employee code eg: 45974"
               {...register('emp_code')}
             />
             {errors.emp_code && <ErrorMessage message={errors.emp_code && errors.emp_code.message} />}
-          </Stack>
+            </Grid>
 
-        </Stack>
+       
 
-        <Stack sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 4 }}>
-          <Stack>
+       
+            <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="password"
               label="Password"
@@ -135,8 +138,8 @@ export default function RegisterView() {
               }}
             />
             {errors.password && <ErrorMessage message={errors.password && errors.password.message} />}
-          </Stack>
-          <Stack>
+            </Grid>
+            <Grid item lg={6} sm={12} xs={12} md={6}>
             <TextField
               name="confirm_password"
               label="Confirm Password"
@@ -154,11 +157,9 @@ export default function RegisterView() {
               }}
             />
             {errors.confirm_password && <ErrorMessage message={errors.confirm_password && errors.confirm_password.message} />}
-          </Stack>
-        </Stack>
-
-        {/* Display validation error */}
-      </Stack>
+            </Grid>
+            </Grid>
+       
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" color="inherit" sx={{marginTop: 4}}>
         Register
