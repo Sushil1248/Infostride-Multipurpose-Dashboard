@@ -225,9 +225,9 @@ export default function LoginView() {
             <>
               <Typography variant="h4">Sign in to Infostide</Typography>
               <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-                Don’t have an account?
+                Don’t have an account? {" "}
                 <Link variant="subtitle2" to="/auth/register" >
-                  Login
+                 Signup
                 </Link>
               </Typography>
 

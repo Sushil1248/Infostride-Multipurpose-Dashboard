@@ -27,15 +27,21 @@ import AuthService from 'src/lib/api/AuthServices';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import ErrorMessage from 'src/components/shared/errorMessage';
+import { useRouter } from 'src/routes/hooks';
+import { toast } from 'react-toastify';
+import Loader from 'src/layouts/shared/Loader';
+import { useRegisterMutation } from 'src/lib/api/queriesAndMutations';
 
 // ----------------------------------------------------------------------
 
 export default function RegisterView() {
   const theme = useTheme();
 
-  // const router = useRouter();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setshowConfirmPassword] = useState(false);
+  const registerMutation = useRegisterMutation();
+  const {isLoading} = registerMutation;
 
   const {
     register,
@@ -48,6 +54,10 @@ export default function RegisterView() {
   const onSubmit = async (data) => {
     const response = await APIUtils.handleRequest(AuthService.register(data));
     console.table(response); // Handle form submission here
+    if(response.code === 200){
+      router.push('/auth/login')
+      toast.success("Thank you for registering! Please Login.")
+    }
   };
 
   const renderForm = (
@@ -57,7 +67,7 @@ export default function RegisterView() {
           <Stack sx={{ width: '50%' }}>
             <TextField
               name="firstName"
-              label="Enters First name"
+              label="Enter First name"
               sx={{ width: '100%' }}
               {...register('firstName')}
             />
@@ -157,7 +167,12 @@ export default function RegisterView() {
   );
 
   return (
-    <Box
+    <>
+    {
+    isLoading ? (
+      <Loader type="default" />
+    ) : ( 
+   <Box
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default),
@@ -184,7 +199,7 @@ export default function RegisterView() {
           <Typography variant="h4">Register with Infostide</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Already have an account?
+            Already have an account? {" "}
             <Link variant="subtitle2" to="/auth/login" className='text-white'>
               Login
             </Link>
@@ -232,5 +247,7 @@ export default function RegisterView() {
         </Card>
       </Stack>
     </Box>
+    )}
+    </>
   );
 }
