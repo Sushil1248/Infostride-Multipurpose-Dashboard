@@ -14,7 +14,7 @@ import Loader from '../shared/Loader';
 
 export default function DashboardLayout({ children }) {
   const [openNav, setOpenNav] = useState(false);
-  const { isLoading } = useUserContext();
+  const { isLoading, isAuthenticated } = useUserContext();
   return (
     <>
       {isLoading ? (
@@ -22,17 +22,22 @@ export default function DashboardLayout({ children }) {
         <Loader type="default" />
       ) : (
         <>
-          <Header onOpenNav={() => setOpenNav(true)} />
-          <Box
-            sx={{
-              minHeight: 1,
-              display: 'flex',
-              flexDirection: { xs: 'column', lg: 'row' },
-            }}
-          >
-            <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
-            <Main>{children}</Main>
-          </Box>
+          {isAuthenticated && (
+            <>
+              <Header onOpenNav={() => setOpenNav(true)} />
+              <Box
+                sx={{
+                  minHeight: 1,
+                  display: 'flex',
+                  flexDirection: { xs: 'column', lg: 'row' },
+                }}
+              >
+                <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
+                <Main>{children}</Main>
+              </Box>
+            </>
+          )}
+
         </>
       )}
     </>

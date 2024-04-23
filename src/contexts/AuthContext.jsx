@@ -31,14 +31,20 @@ const AuthContext = createContext(INITIAL_STATE);
 const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(INITIAL_USER);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [rerender, setRerender] = useState(false); // Initialize the state
+    const [rerender, setRerender] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const getProfileMutation = useGetProfileMutation();
-    const { isLoading } = getProfileMutation;
-
     const router = useRouter();
 
+    const logout = useCallback(() => {
+        localStorage.removeItem('token');
+        router.push('/auth/login');
+    }, [router]);
+    
     const checkAuthUser = useCallback(async () => {
         try {
+            setIsLoading(true);
+            if(isAuthenticated) return;
             const userDataResponse = await getProfileMutation.mutateAsync();
             const userData = userDataResponse?.data;
             if (userData) {
@@ -54,25 +60,49 @@ const AuthContextProvider = ({ children }) => {
                     permissions: userData.permissions,
                 });
                 setIsAuthenticated(true);
-                return true;
             }
-            return false;
         } catch (error) {
             console.log(error);
-            return false;
+        } finally {
+            setIsLoading(false);
         }
-    }, [getProfileMutation]);
+    }, [getProfileMutation, isAuthenticated]);
 
-    useEffect(() => {
-        const cookieFallback = localStorage.getItem("token");
-        if (cookieFallback === "[]" || cookieFallback === null || cookieFallback === undefined) {
-            router.push('/auth/login')
-            return;
+   
+
+    const checkTokenPresenceAndValidity = useCallback(() => {
+        const decodeToken = (token) => {
+            try {
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (error) {
+                return {};
+            }
+        };
+
+        const isTokenExpired = (token) => {
+            if (token === "[]" || token === null || token === undefined) return true;
+            const decodedToken = decodeToken(token); // Assuming you have a function to decode the token
+            if (!decodedToken.exp) return true; // Token doesn't have an expiration time
+            return Date.now() >= decodedToken.exp * 1000; // Check if the current time is past the expiration time
+        };
+
+        const token = localStorage.getItem('token');
+        if (token === "[]" || token === null || token === undefined || isTokenExpired(token)) {
+            setIsAuthenticated(false);
+            router.push('/auth/login');
+        }else{
+            setIsAuthenticated(true);
         }
         if (!isAuthenticated && !isLoading) {
             checkAuthUser();
         }
-    }, [router, checkAuthUser, isAuthenticated, isLoading]);
+
+    }, [checkAuthUser, router, isAuthenticated, isLoading]);
+
+
+    useEffect(() => {
+        checkTokenPresenceAndValidity();
+    }, [checkTokenPresenceAndValidity]);
 
     const value = useMemo(
         () => ({
@@ -84,8 +114,9 @@ const AuthContextProvider = ({ children }) => {
             isLoading,
             setIsAuthenticated,
             checkAuthUser,
+            logout
         }),
-        [user, isAuthenticated, rerender, isLoading, checkAuthUser]
+        [user, isAuthenticated, rerender, isLoading, checkAuthUser, logout]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -94,6 +125,7 @@ const AuthContextProvider = ({ children }) => {
 export default AuthContextProvider;
 
 export const useUserContext = () => useContext(AuthContext);
+
 AuthContextProvider.propTypes = {
     children: PropTypes.node,
 };

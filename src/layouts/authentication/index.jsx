@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
-
+import { Navigate } from 'react-router-dom';
+import { useUserContext } from 'src/contexts/AuthContext';
 import Main from './main';
 
-// ----------------------------------------------------------------------
-
 export default function AuthLayout({ children }) {
-  return (
+  const { isAuthenticated } = useUserContext();
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
+  return (
     <Box
       sx={{
         minHeight: 1,
@@ -17,9 +19,7 @@ export default function AuthLayout({ children }) {
         flexDirection: { xs: 'column', lg: 'row' },
       }}
     >
-      <Main sx={{
-        p: 0,
-      }}>{children}</Main>
+      <Main sx={{ p: 0 }}>{children}</Main>
     </Box>
   );
 }

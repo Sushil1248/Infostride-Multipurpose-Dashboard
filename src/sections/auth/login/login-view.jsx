@@ -278,7 +278,7 @@ export default function LoginView() {
               />
               <Typography variant="h4">Verify your Identity</Typography>
               <Typography variant="body1" my={2}>An OTP (One-Time Password) has been sent to your email address. Please check your inbox and enter the OTP below to verify your identity.</Typography>
-              <Stack>Your Otp Will Expire in {minutes}:{formattedSeconds}</Stack>
+              <Stack mb={4}>Your Otp Will Expire in {minutes}:{formattedSeconds}</Stack>
             </>
           )}
 

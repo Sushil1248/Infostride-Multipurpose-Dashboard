@@ -5,7 +5,7 @@ const APIUtils = {
     try {
       return await promise;
     } catch (error) {
-      const errorMessage = error.message.message || 'An error occurred';
+      const errorMessage = error.message.message || error.message || 'An error occurred';
       if (error.status === 'error' || error.status === 401) {
         toast.error(errorMessage);
       } else if (error.status === 'restrict' || error.status === 405) {

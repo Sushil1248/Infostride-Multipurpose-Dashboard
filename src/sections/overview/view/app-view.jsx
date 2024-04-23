@@ -1,4 +1,5 @@
 // import { faker } from '@faker-js/faker';
+import { useUserContext } from 'src/contexts/AuthContext';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -19,11 +20,14 @@ import AppWidgetSummary from '../app-widget-summary';
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+
+  const { user } = useUserContext();
   return (
     <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, {import.meta.env.VITE_APP_NAME} 👋
+      <Typography variant="h4">
+        Hi, {user?.firstName} 👋
       </Typography>
+      <Typography variant='h6'  sx={{ mb: 5 }}>{user?.bio === '' ? 'Add your Bio' : user?.bio}</Typography>
 
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
