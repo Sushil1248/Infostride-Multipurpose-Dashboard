@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Container from "./Components/SmoothDnd/Dnd/Container";
-import Draggable from "./Components/SmoothDnd/Dnd/Draggable";
-import { applyDrag, generateItems } from "./Components/SmoothDnd/Dnd/utils";
+import Container from "./Dnd/Container";
+import Draggable from "./Dnd/Draggable";
+import { applyDrag, generateItems } from "./Dnd/utils";
 
 const Section_Editor = styled.div`
   text-align: center;
