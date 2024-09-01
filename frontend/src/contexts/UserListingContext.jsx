@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useMemo, useState, useEffect, useContext, useCallback, createContext } from "react";
 import { useGetUserListing } from "src/lib/api/queriesAndMutations";
-import { useRouter } from 'src/routes/hooks';
 
 export const INITIAL_USER_LISTING_STATE = {
     users: [],

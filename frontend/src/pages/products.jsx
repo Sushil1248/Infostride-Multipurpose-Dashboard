@@ -8,7 +8,7 @@ export default function ProductsPage() {
   return (
     <>
       <Helmet>
-        <title> Products | Infostide UI </title>
+        <title> Products </title>
       </Helmet>
 
       <ProductsView />

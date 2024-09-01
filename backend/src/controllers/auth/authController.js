@@ -156,23 +156,40 @@ const login = async (req, res) => {
         const template = handlebars.compile(templateFile);
         const app_logo = `${process.env.APP_LOGO_PATH}`;
         const app_name = process.env.APP_NAME;
+        ResponseHandler.success(res, { email_sent: true, otp:otp, message: "Verification code sent successfully"+otp }, HTTP_STATUS_CODES.OK);
 
-        const mailOptions = {
-          from: process.env.EMAIL_FROM,
-          to: email,
-          subject: 'Account Verification Email',
-          html: template({ otp, app_logo, app_name })
-        };
+        // const mailOptions = {
+        //   from: process.env.EMAIL_FROM,
+        //   to: email,
+        //   subject: 'Account Verification Email',
+        //   html: template({ otp, app_logo, app_name })
+        // };
 
-        // Send email
-        sendMail(mailOptions)
-          .then(() => {
-            ResponseHandler.success(res, { email_sent: true, otp, message: "Verification code sent successfully" }, HTTP_STATUS_CODES.OK);
-          })
-          .catch((error) => {
-            console.log(error, "EROR")
-            ResponseHandler.error(res, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR, { field_error: 'password', email_sent: false, message: "Failed to send verification code" }, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR); return;
-          });
+        // // Send email
+        // sendMail(mailOptions)
+        //   .then(() => {
+        //     ResponseHandler.success(res, { email_sent: true, message: "Verification code sent successfully" }, HTTP_STATUS_CODES.OK);
+        //   })
+        //   .catch((error) => {
+        //     ResponseHandler.error(res, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR, { field_error: 'password', email_sent: false, message: "Failed to send verification code" }, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR); return;
+        //   });
+
+        // const mailOptions = {
+        //   from: process.env.EMAIL_FROM,
+        //   to: email,
+        //   subject: 'Account Verification Email',
+        //   html: template({ otp, app_logo, app_name })
+        // };
+
+        // // Send email
+        // sendMail(mailOptions)
+        //   .then(() => {
+        //     ResponseHandler.success(res, { email_sent: true, otp, message: "Verification code sent successfully" }, HTTP_STATUS_CODES.OK);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error, "EROR")
+        //     ResponseHandler.error(res, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR, { field_error: 'password', email_sent: false, message: "Failed to send verification code" }, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR); return;
+        //   });
       } catch (error) {
         ErrorHandler.handleError(error, res);
       }

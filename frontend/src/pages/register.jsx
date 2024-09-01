@@ -8,7 +8,7 @@ export default function RegisterPage() {
   return (
     <>
       <Helmet>
-        <title> Register | Infostide UI </title>
+        <title> Register </title>
       </Helmet>
 
       <RegisterView />

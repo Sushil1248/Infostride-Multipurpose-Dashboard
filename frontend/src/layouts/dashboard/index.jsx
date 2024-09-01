@@ -9,6 +9,7 @@ import Nav from './nav';
 import Main from './main';
 import Header from './header';
 import Loader from '../shared/Loader';
+import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 

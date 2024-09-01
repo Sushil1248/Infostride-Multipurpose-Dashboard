@@ -8,7 +8,7 @@ export default function BlogPage() {
   return (
     <>
       <Helmet>
-        <title> Blog | Infostide UI </title>
+        <title> Blog </title>
       </Helmet>
 
       <BlogView />

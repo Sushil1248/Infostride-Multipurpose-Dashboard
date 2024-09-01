@@ -22,7 +22,7 @@ connectDB();
 console.log(Date.now());
 // Middleware
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
+app.use(cors());
 app.use('/assets', express.static(path.join(__dirname, 'src', 'assets')));
 app.use('/api/auth', authRoutes);
 app.use('/api/common', commonRoutes);

@@ -8,7 +8,7 @@ export default function PageOperation() {
   return (
     <>
       <Helmet>
-        <title> Pages | Infostride UI </title>
+        <title> Pages | Sushil </title>
       </Helmet>
 
       <PageOperationView />

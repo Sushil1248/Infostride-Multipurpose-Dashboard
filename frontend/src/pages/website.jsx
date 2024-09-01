@@ -8,7 +8,7 @@ export default function WebsitePage() {
   return (
     <>
       <Helmet>
-        <title> Website | Infostide UI </title>
+        <title> Website </title>
       </Helmet>
 
       <WebsiteView />

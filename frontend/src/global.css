@@ -8,3 +8,9 @@ input {
     -webkit-background-clip: text !important;
     -webkit-box-shadow: none !important;
 }
+.herosection{
+    background-image: url('assets/ecom/hero-bg.png');
+    background-repeat: repeat;
+    background-size: contain;
+    place-items: self-end;
+  }

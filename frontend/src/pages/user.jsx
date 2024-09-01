@@ -8,10 +8,10 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User | Infostide UI </title>
+        <title> User </title>
       </Helmet>
 
       <UserView />
     </>
   );
-}
+} 

@@ -122,7 +122,7 @@ export default function LoginView() {
         if(response?.data?.login_success){
           toast.success(response?.data?.message);
           localStorage.setItem('token', response?.data?.token)
-          router.push('/');
+          router.push('/admin/dashboard');
         }
       }
 
@@ -223,7 +223,7 @@ export default function LoginView() {
         >
           {formType === 'login_form' && (
             <>
-              <Typography variant="h4">Sign in to Infostide</Typography>
+              <Typography variant="h4">Sign in to {import.meta.env.VITE_APP_NAME}</Typography>
               <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
                 Don’t have an account? {" "}
                 <Link variant="subtitle2" to="/auth/register" >
