@@ -277,7 +277,7 @@ const createOrEditUser = async (req, res) => {
       existingUser.email = email;
       existingUser.firstName = firstName;
       existingUser.lastName = lastName;
-      existingUser.role = userRole._id;
+      existingUser.role = userRole._id ;
       existingUser.permissions =permissions;
       if (profile_pic == '') {
         existingUser.profile_pic = profile_pic;

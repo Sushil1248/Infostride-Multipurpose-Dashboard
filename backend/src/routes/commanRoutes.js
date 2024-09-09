@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllDomain } = require('../controllers/common/DomainOperation');
-const { createEditNavigationItem, getAllNavigationItems, getNavigationItemById, quickEditNavItem } = require('../controllers/common/NavigationController');
+const { createEditNavigationItem, getAllNavigationItems, getNavigationItemById, quickEditNavItem, generateDeletionSignature } = require('../controllers/common/NavigationController');
 const router = express.Router();
 
 router.get('/get-all-domains',getAllDomain );
@@ -9,5 +9,5 @@ router.post('/create-or-edit/navigation-items', createEditNavigationItem);
 router.get('/navigation-items', getAllNavigationItems);
 router.get('/navigation-items/:navigation_item_id', getNavigationItemById);
 router.patch('/navigation-item-quick-edit/:id', quickEditNavItem);
-
+router.post('/sign/public-id', generateDeletionSignature)
 module.exports = router;

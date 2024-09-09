@@ -23,11 +23,11 @@ const ContactPage = lazy(() => import('src/pages/contact'));
 
 // Backend Admin Pages
 const AdminDashboard = lazy(() => import('src/pages/app'));
-const UserManagement = lazy(() => import('src/pages/user'));
+const UserManagement = lazy(() => import('src/pages/crud'));
 const ProductManagement = lazy(() => import('src/pages/admin/products'));
 const OrderManagement = lazy(() => import('src/pages/admin/orders'));
 const CategoryManagement = lazy(() => import('src/pages/admin/categories'));
-const WebsiteSettings = lazy(() => import('src/pages/admin/settings'));
+const WebsiteSettings = lazy(() => import('src/pages/admin/website-setting'));
 
 // Authentication Pages
 export const LoginPage = lazy(() => import('src/pages/login'));
@@ -74,11 +74,11 @@ export default function Router() {
       ),
       children: [
         { path: 'dashboard', element: <AdminDashboard /> },
-        { path: 'users', element: <UserListingContextProvider><UserManagement /></UserListingContextProvider> },
+        { path: 'user', element: <UserListingContextProvider><UserManagement /></UserListingContextProvider> },
         { path: 'products', element: <ProductManagement /> },
         { path: 'orders', element: <OrderManagement /> },
         { path: 'categories', element: <CategoryManagement /> },
-        { path: 'settings', element: <WebsiteSettings /> },
+        { path: 'settings/:element', element: <WebsiteSettings /> },
       ],
     },
 

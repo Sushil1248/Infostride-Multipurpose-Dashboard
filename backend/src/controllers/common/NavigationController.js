@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const NavigationItem = require('../../models/NavigationItem');
 const { HTTP_STATUS_CODES } = require('../../constants/error_message_codes');
 const Domain = require('../../models/Domain');
+const crypto = require('crypto');
 
 const getDomainNameById = async (domainId) => {
     try {
@@ -51,12 +52,12 @@ const createEditNavigationItem = async (req, res) => {
         navigationItem.type = type || navigationItem.type;
         navigationItem.enabled = enabled || navigationItem.enabled;
         navigationItem.imgURL = imgUrl || navigationItem.imgURL;
-        if(category == true){
-            navigationItem.category = true ;
-        }else{
-            navigationItem.category = false ;
+        if (category == true) {
+            navigationItem.category = true;
+        } else {
+            navigationItem.category = false;
         }
-       
+
 
 
         let updatedNavigationItem = await navigationItem.save();
@@ -164,10 +165,10 @@ const quickEditNavItem = async (req, res) => {
         if (!navigationItem) {
             throw new CustomError(404, 'Post not found');
         }
-        
+
         if (enabled == false) {
             navigationItem.enabled = false;
-        }else{
+        } else {
             navigationItem.enabled = true;
         }
 
@@ -179,8 +180,25 @@ const quickEditNavItem = async (req, res) => {
     }
 };
 
+const generateDeletionSignature = async (req, res) => {
+    const { publicId } = req.body;
+
+    if (!publicId) {
+        return res.status(400).json({ error: 'Missing publicId' });
+    }
+
+    try {
+        const timestamp = Math.floor(Date.now() / 1000); // Current timestamp
+        const toSign = `public_id=${publicId}&timestamp=${timestamp}${process.env.CLOUDINARY_API_SECRET}`;
+        const signature = crypto.createHash('sha1').update(toSign).digest('hex');
+        res.status(200).json({ signature, timestamp });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to generate signature' });
+    }
+};
+
 module.exports = {
     createEditNavigationItem, getNavigationItemById,
-    getAllNavigationItems, quickEditNavItem
+    getAllNavigationItems, quickEditNavItem, generateDeletionSignature
 };
 

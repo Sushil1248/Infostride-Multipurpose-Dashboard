@@ -36,6 +36,99 @@ export default function CrudPage({ label, columns, tabledata }) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selectedItem, setSelectedItem] = useState({});
   const [editMode, setEditMode] = useState(false)
+  // Example usage
+  const formItems = [
+    {
+      name: "username",
+      label: "Username",
+      type: "text",
+      validation: { type: "string", min: 2, message: "Username is too short" }
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "text",
+      validation: { type: "string", email: true, message: "Invalid email address" }
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "text",
+      validation: { type: "string", min: 6, message: "Password is too short" }
+    },
+    {
+      name: "confirm_password",
+      label: "Confirm Password",
+      type: "text",
+      validation: { type: "string", min: 6 }
+    },
+    {
+      name: "singleImage",
+      label: "Profile Image",
+      type: "single-image",
+      validation: { type: "any" }
+    },
+    {
+      name: "multiImage",
+      label: "Gallery Image",
+      type: "multi-image",
+      validation: { type: "any" }
+    },
+    {
+      name: "terms",
+      label: "Agree to terms",
+      type: "checkbox",
+      validation: { type: "boolean", required: true, message: "Must agree to terms" }
+    },
+    {
+      name: "gender",
+      label: "Gender",
+      type: "radio",
+      options: [
+        { label: "Male", value: "male" },
+        { label: "Female", value: "female" },
+        { label: "Other", value: "other" }
+      ],
+      validation: { type: "string", required: true, message: "Please select your gender" }
+    },
+    {
+      name: "age",
+      label: "Age",
+      type: "number",
+      validation: { type: "number", min: 18, message: "You must be at least 18 years old" }
+    },
+    {
+      name: "country",
+      label: "Country",
+      type: "dropdown",
+      options: [
+        { label: "United States", value: "us" },
+        { label: "Canada", value: "ca" },
+        { label: "India", value: "in" }
+      ],
+      validation: { type: "string", required: true, message: "Please select a country" }
+    },
+    {
+      name: "birthdate",
+      label: "Birthdate",
+      type: "date",
+      validation: { type: "date", required: true, message: "Please select a birthdate" }
+    },
+    {
+      name: "phone",
+      label: "Phone Number",
+      type: "text",
+      validation: { type: "string", pattern: /^[0-9]{10}$/, message: "Phone number must be 10 digits" }
+    },
+    {
+      name: "bio",
+      label: "Short Bio",
+      type: "textarea",
+      validation: { type: "string", max: 200, message: "Bio should not exceed 200 characters" }
+    }
+  ];
+
+
 
   // handle sort
   const handleSort = (event, id) => {
@@ -136,7 +229,7 @@ export default function CrudPage({ label, columns, tabledata }) {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={columns}
               />
-               <TableBody>
+              <TableBody>
                 {dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                   <CrudTableRow
                     key={row.id}
@@ -168,7 +261,7 @@ export default function CrudPage({ label, columns, tabledata }) {
         />
       </Card>
       {/* modal */}
-      <CrudModal visible={visible} setVisible={setVisible} editMode={editMode} selectedItem={selectedItem} />
+      <CrudModal visible={visible} setVisible={setVisible} crudFor={label} formItems={formItems} editMode={editMode} selectedItem={selectedItem} />
     </Container>
   );
 }
