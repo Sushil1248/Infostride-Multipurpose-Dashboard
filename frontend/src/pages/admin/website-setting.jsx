@@ -21,7 +21,12 @@ export default function WebsiteSettings() {
                 <title> {import.meta.env.VITE_ENV} Settings </title>
             </Helmet>
 
-            <CrudView label={element} columns={columns} tabledata={users} />
+            {element == 'form-builder' ? (
+                <></>
+            ) : (
+                <CrudView label={element} columns={columns} tabledata={users} />
+            )}
+
         </>
     );
 }

@@ -10,11 +10,10 @@ const CLOUDINARY_DESTROY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLO
 // Function to request deletion signature from the backend
 const generateDeletionSignature = async (publicId) => {
     try {
-        const timestamp = Math.floor(Date.now() / 1000); // Current timestamp
-        // Send a request to your backend to generate the signature
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}common/sign/public-id`, { publicId, timestamp });
-        const { signature } = response.data; // Assuming the backend returns a signature and timestamp
-        return { signature, timestamp }; // Return signature and timestamp
+
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}common/sign/public-id`, { publicId });
+        const { signature, timestamp } = response.data;
+        return { signature, timestamp };
     } catch (error) {
         console.error('Error generating deletion signature:', error);
         return null; // Handle error appropriately
@@ -25,7 +24,7 @@ const generateDeletionSignature = async (publicId) => {
 export const uploadImageToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'sushil'); // Your upload preset
+    formData.append('upload_preset', 'sushil');
 
     try {
         const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, formData, {

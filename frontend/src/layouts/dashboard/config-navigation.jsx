@@ -25,7 +25,7 @@ const navConfig = [
      
       {
         title: 'Add Category',
-        path: '/admin/settings/category',
+        path: '/admin/settings/form-builder',
         icon: icon('ic_category'),
       },
       {

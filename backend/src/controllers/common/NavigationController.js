@@ -69,46 +69,6 @@ const createEditNavigationItem = async (req, res) => {
     }
 };
 
-const transformNavigationItems = async (navigationItems) => {
-    const resultArray = [];
-
-    for (const item of navigationItems) {
-        const domainName = await getDomainNameById(item.domain_id);
-
-        if (!domainName) {
-            // Handle the case where domainName is not available
-            console.error('Domain name not found for domain_id:', item.domain_id);
-            continue;
-        }
-
-        const transformedItem = {
-            imgURL: item.imgURL,
-            route: item.route,
-            label: item.label,
-            type: item.type,
-            category: item.category
-        };
-        console.log(transformedItem)
-        if (item.subcategory && item.subcategory.length > 0) {
-            transformedItem.subcategory = item.subcategory.map(subItem => ({
-                imgURL: subItem.imgURL,
-                route: subItem.route,
-                label: subItem.label,
-                type: subItem.type,
-            }));
-        }
-
-        const domainIndex = resultArray.findIndex(entry => entry[0] === domainName);
-        if (domainIndex === -1) {
-            resultArray.push([domainName, [transformedItem]]);
-        } else {
-            resultArray[domainIndex][1].push(transformedItem);
-        }
-    }
-
-    return resultArray.map(([domainName, items]) => ({ [domainName]: items }));
-};
-
 const getAllNavigationItems = async (req, res) => {
     try {
         const domainHeader = req.headers['domain'];

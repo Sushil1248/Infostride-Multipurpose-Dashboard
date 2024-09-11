@@ -24,14 +24,7 @@ const CrudModal = forwardRef(({ visible = false, setVisible, formItems, editMode
   // Dynamic form schema based on formItems
   const schema = createValidationSchema(formItems);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    watch,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, setValue, getValues, watch, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
 
@@ -134,7 +127,7 @@ const CrudModal = forwardRef(({ visible = false, setVisible, formItems, editMode
     setShowPassword(prev => ({ ...prev, [name]: !prev[name] }));
   };
 
-  console.log(getValues());
+  console.log(getValues(), errors);
   const onSubmit = async (data) => {
     try {
       const response = await createOrEditMutation.mutateAsync(data);
@@ -337,7 +330,7 @@ const CrudModal = forwardRef(({ visible = false, setVisible, formItems, editMode
 
   const dynamicForm = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant='h6' className='pt-4 pb-8'>
+      <Typography variant='h6' className='pt-4 pb-8 mb-4'>
         {editMode ? `Edit Information` : 'Add New'}
       </Typography>
 
@@ -368,11 +361,19 @@ const CrudModal = forwardRef(({ visible = false, setVisible, formItems, editMode
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: '40%',  // Adjust the width based on the screen size
+    maxHeight: '100vh',  // Ensure the modal doesn't overflow the viewport height
     bgcolor: 'background.paper',
     boxShadow: 24,
     borderRadius: 1,
-    p: 4,
+    p: 2,
+    overflowY: 'auto',  // Enable vertical scrolling if content exceeds max height
+  };
+
+  const modalStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   return (
@@ -382,6 +383,7 @@ const CrudModal = forwardRef(({ visible = false, setVisible, formItems, editMode
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       className='rounded-md'
+      sx={modalStyle}
     >
       <Box sx={style}>
         {dynamicForm}

@@ -7,6 +7,7 @@ import './global.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import 'simplebar-react/dist/simplebar.min.css';
 
 import App from './app';
 
